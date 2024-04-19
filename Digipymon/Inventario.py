@@ -14,4 +14,10 @@ class Inventario:
         else:
             print("No tienes este objeto en tu inventario.")
 
+    def mostrar_objetos(self):
+        numerador = 0
+        for nombre in self.objetos:
+            numerador += 1
+            print(str(numerador),"~ ",nombre," : " + str(self.objetos[nombre]))
+
    

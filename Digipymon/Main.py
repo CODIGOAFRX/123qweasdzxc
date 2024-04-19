@@ -21,7 +21,7 @@ def main():
         elif opcion == 1:
             
             digipymon1 = buscar_digipymon(jugador1,inventario1)  
-            probabilidad = 100 - (digipymon1.nivel * 50)    
+            probabilidad = 100 - (digipymon1.nivel * 10)    
             print("La probabilidad de captura de este" , str(digipymon1.nombre) ,"es :", str(probabilidad),"%")
             captura = str(input("Quieres intentar capturarlo? (y/n)"))  
             cuantas_digipyballs = inventario1.objetos.get("Digipyball")
@@ -29,6 +29,7 @@ def main():
                 if cuantas_digipyballs > 0 and jugador1.cantidad_digipymon < 6:
                     bucle1 = True
                     while bucle1:
+                        cuantas_digipyballs = inventario1.objetos.get("Digipyball")
                         aleatorio = random.randint(1, 100)
                         inventario1.usar_objeto("Digipyball")
                         if aleatorio > 0 and aleatorio <= probabilidad :
@@ -39,7 +40,7 @@ def main():
                             print("No has podido capturar este digipymon")
                             if cuantas_digipyballs > 0:
                                 pregunta1 = str(input("Quieres volver a intentarlo? (y/n)"))
-                                if pregunta1 == "n" or pregunta1 == "N":
+                                if pregunta1 == "n" or pregunta1 == "N" or cuantas_digipyballs <= 0:
                                     bucle1 = False
                             else: 
                                 print("¡Ya no tienes digipyballs!")
@@ -58,6 +59,28 @@ def main():
             combate(jugador1)
         elif opcion == 6:
             consultar_digipymons(jugador1)
+        elif opcion == 3:
+            digishop_completo(jugador1,inventario1)
+        elif opcion == 5:
+            inventario1.mostrar_objetos()
+        elif opcion == 4:
+            inventario1.mostrar_objetos()
+            opcion_usar = str(input("¿Qué objeto del inventario deseas usar? Anabolizante (A|P) Pociones"))
+            if opcion_usar == "A" or opcion_usar == "a":
+                consultar_digipymons(jugador1)
+                cualquiere = int(input("A que numero de digipymons quieres chetar"))
+                digipymon_elegido = jugador1.consultar_digipoints[cualquiere-1] 
+                print("Inyectando esteroides a "+ str(digipymon_elegido))
+                inventario1.usar_objeto("Anabolizantes")
+                ############################ VAMOS POR AQUI BUSCANSO UN SET
+                
+                jugador1.digipymon_elegido.
+                
+                
+            elif opcion_usar == "P" or opcion_usar == "p":
+                print("Bebiendo poción repugnante")
+                inventario1.usar_objeto("Poción Curativa")
+                
     
     
     
@@ -77,7 +100,7 @@ def menu():
     print("1. Buscar digipymon            ****")
     print("2. Luchar contra un entrenador ****")
     print("3. Ir a la tienda              ****")
-    print("4. Usar objetos")
+    print("4. Usar objetos                ****")
     print("5. Consultar inventario        ****")
     print("6. Consultar digipymons        ****")
     print("7. Salir")
@@ -85,6 +108,13 @@ def menu():
     return opcion
 
 def buscar_digipymon(Jugador,Inventario):
+    
+    #Estaría bacano agregar zonas distintas donde buscar digipymons.
+    #Sitios que aparezcan más de fuego, otra que aparezcan más de planta etc.
+    #Estaría guay tambien agregar zonas donde salgan digipymons más fuertes e incluso digipymons evolucionados muy 
+    #dificiles de capturar.
+    #Hay que agregar tambien lo que viene siendo lo de las evoluciones.
+
     digipymon1 = generar_digipymon_aleatorio()
     print(digipymon1)
    
@@ -178,6 +208,44 @@ def consultar_digipymons(jugador1):
         print(f"Digipymon numero {i+1}:")
         mi_digipymon = jugador1.lista_digipymon[i]
         print(str(mi_digipymon))
+
+def digishop_completo(jugador1,inventario1):
+    opcion_tienda = digishop()
+    bucle3 = True
+    while bucle3:
+        if opcion_tienda == 1:
+            if jugador1.digicoins >= 5:
+                print("Has comprado una Digipyball")
+                jugador1.digicoins -= 5
+                inventario1.añadir_objeto("Digipyball",1)
+                break
+            else:
+                print("No tienes suficientes digicoins")
+                bucle3 = False
+        elif opcion_tienda == 2:
+            if jugador1.digicoins >= 3:
+                print("Has comprado una poción Curativa (+10p de vida)")
+                jugador1.digicoins -= 3
+                inventario1.añadir_objeto("Poción Curativa",1)
+                break
+            else:
+                print("No tienes suficientes digicoins")
+                bucle3 = False
+        elif opcion_tienda == 3:
+            if jugador1.digicoins >= 4:
+                print("Has comprado anabolizantes (+5p de ataque)")
+                jugador1.digicoins -= 4
+                inventario1.añadir_objeto("Anabolizantes",1)
+                break
+            else:
+                print("No tienes suficientes digicoins")
+                bucle3 = False
+        elif opcion_tienda == 4:
+            bucle3 = False
+        else:
+            print("Opción inválida. Intente de nuevo.")    
+def usar_item():
+    pass
 
     
 main()
