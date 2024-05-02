@@ -421,7 +421,8 @@ def generar_digipymon_Evo_Fuego():
     tipos = ["Fuego"]
     tipo = random.choice(tipos)
     lista = ListaNombres()
-    nombre = lista.obtener_nombre_digipymon_evolucionado()
+    numero_aletorio= random.randint(0,19)
+    nombre = lista.obtener_nombre_digipymon_evolucionado(numero_aletorio)
     digipymon_evo_Fuego = Digipymon(nombre, vida, ataque,tipo, nivel)
     return digipymon_evo_Fuego
 def generar_digipymon_Evo_Agua():
@@ -431,7 +432,8 @@ def generar_digipymon_Evo_Agua():
     tipos = ["Agua"]
     tipo = random.choice(tipos)
     lista = ListaNombres()
-    nombre = lista.obtener_nombre_digipymon_evolucionado()
+    numero_aletorio= random.randint(0,19)
+    nombre = lista.obtener_nombre_digipymon_evolucionado(numero_aletorio)
     digipymon_evo_Agua = Digipymon(nombre, vida, ataque,tipo, nivel)
     return digipymon_evo_Agua
 
@@ -442,7 +444,8 @@ def generar_digipymon_Evo_Planta():
     tipos = ["Planta"]
     tipo = random.choice(tipos)
     lista = ListaNombres()
-    nombre = lista.obtener_nombre_digipymon_evolucionado()
+    numero_aletorio= random.randint(0,19)
+    nombre = lista.obtener_nombre_digipymon_evolucionado(numero_aletorio)
     digipymon_evo_Planta = Digipymon(nombre, vida, ataque,tipo, nivel)
     return digipymon_evo_Planta
 
